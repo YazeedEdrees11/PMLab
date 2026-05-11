@@ -9,9 +9,11 @@ interface DatePickerProps {
   value: string;
   onChange: (value: string) => void;
   isRtl?: boolean;
+  placeholder?: string;
+  minDate?: Date;
 }
 
-export function CustomDatePicker({ value, onChange, isRtl }: DatePickerProps) {
+export function CustomDatePicker({ value, onChange, isRtl, placeholder, minDate }: DatePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [currentMonth, setCurrentMonth] = React.useState(new Date());
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -69,6 +71,8 @@ export function CustomDatePicker({ value, onChange, isRtl }: DatePickerProps) {
     }
 
     for (let i = 1; i <= totalDays; i++) {
+      const isBeforeMin = minDate && new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i) < new Date(minDate.setHours(0,0,0,0));
+      
       const isSelected = selectedDate && 
         selectedDate.getDate() === i && 
         selectedDate.getMonth() === currentMonth.getMonth() && 
@@ -77,17 +81,20 @@ export function CustomDatePicker({ value, onChange, isRtl }: DatePickerProps) {
       const isToday = new Date().getDate() === i && 
         new Date().getMonth() === currentMonth.getMonth() && 
         new Date().getFullYear() === currentMonth.getFullYear();
-
+      
       days.push(
         <button
           key={i}
+          disabled={isBeforeMin}
           onClick={() => handleDateSelect(i)}
           className={`h-10 w-10 rounded-xl flex items-center justify-center font-bold text-sm transition-all ${
             isSelected 
               ? "bg-primary text-white shadow-lg shadow-primary/30" 
               : isToday
                 ? "bg-primary/10 text-primary"
-                : "hover:bg-slate-50 text-slate-700"
+                : isBeforeMin
+                  ? "opacity-20 cursor-not-allowed"
+                  : "hover:bg-slate-50 text-slate-700"
           }`}
         >
           {i}
@@ -105,7 +112,7 @@ export function CustomDatePicker({ value, onChange, isRtl }: DatePickerProps) {
       >
         <CalendarIcon className={`h-5 w-5 ${isRtl ? "ml-4" : "mr-4"} ${isOpen ? "text-primary" : "text-slate-400"} group-hover:text-primary transition-colors`} />
         <span className={`text-lg font-black ${value ? "text-slate-900" : "text-slate-400"}`}>
-          {value ? value : (isRtl ? "اختر التاريخ" : "Select Date")}
+          {value ? value : (placeholder || (isRtl ? "اختر التاريخ" : "Select Date"))}
         </span>
       </div>
 
