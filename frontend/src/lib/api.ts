@@ -139,6 +139,7 @@ export const appointmentsApi = {
 };
 
 // ========== RESULTS ==========
+// Result management API methods
 export const resultsApi = {
   create: (data: { patientId: string; testId: string; appointmentId?: string; fileUrl: string; status: string }) =>
     apiFetch('/results', {
