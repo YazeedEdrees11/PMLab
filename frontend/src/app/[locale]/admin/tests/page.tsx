@@ -33,7 +33,7 @@ const containerVariants = {
     opacity: 1,
     transition: { staggerChildren: 0.05 }
   }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -42,7 +42,7 @@ const itemVariants = {
     y: 0,
     transition: { type: "spring", stiffness: 100, damping: 15 }
   }
-};
+} as const;
 
 export default function TestsManagementPage() {
   const locale = useLocale();
