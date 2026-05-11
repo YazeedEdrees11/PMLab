@@ -47,7 +47,7 @@ import { buttonVariants } from "@/components/ui/button";
 interface BranchStats {
   daily: { revenue: number; count: number };
   weekly: { revenue: number; count: number };
-  monthly: { revenue: number; count: number };
+  monthly: { revenue: number; count: number; trend?: number };
   allTime: { revenue: number; count: number };
 }
 
