@@ -1,0 +1,37 @@
+==================================================
+        PMLAB SYSTEM - ADMIN ACCESS LIST
+==================================================
+PASSWORD FOR ALL ACCOUNTS: admin123
+==================================================
+
+1. SUPER ADMIN (Full Access)
+---------------------------------
+Email: admin@pmlab.jo
+Branch: ALL BRANCHES (Global)
+
+2. BRANCH ADMINS (Isolated Access)
+---------------------------------
+- Gardens Branch:
+  Email: gardens@pmlab.jo
+
+- Karak Branch:
+  Email: karak@pmlab.jo
+
+- Fuheis Branch:
+  Email: fuheis@pmlab.jo
+
+- Khaldi Branch:
+  Email: khaldi@pmlab.jo
+
+- Shmeisani Branch:
+  Email: shmeisani@pmlab.jo
+
+- Jerash Branch:
+  Email: jerash@pmlab.jo
+
+==================================================
+NOTES:
+- Branch admins only see bookings for their branch.
+- Super admin sees everything.
+- To test isolation, log in with 'karak@pmlab.jo' and check if you can see other branches' bookings (you shouldn't).
+==================================================

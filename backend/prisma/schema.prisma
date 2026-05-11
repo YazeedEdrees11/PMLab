@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enums for standardizing statuses and roles
+enum Role {
+  ADMIN
+  STAFF
+  PATIENT
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum TestStatus {
+  PENDING
+  PROCESSING
+  READY
+}
+
+// Models
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(PATIENT)
+  name      String?  // Added for admin/staff names
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patient       Patient? 
+  notifications Notification[]
+  
+  branchId      String?
+  branch        Branch?  @relation(fields: [branchId], references: [id])
+  avatarUrl     String?  @db.Text
+  pushToken     String?  @db.Text
+}
+
+model Patient {
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  phone      String?
+  nationalId String?
+  dob        DateTime?
+  gender     String?
+  address    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  appointments Appointment[]
+  results      Result[]
+  familyMembers FamilyMember[]
+}
+
+model FamilyMember {
+  id         String   @id @default(uuid())
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  name       String
+  relation   String?  // e.g., Son, Daughter, Spouse
+  nationalId String?
+  dob        DateTime?
+  gender     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  appointments Appointment[]
+}
+
+model Branch {
+  id        String   @id @default(uuid())
+  name      String
+  nameAr    String?
+  mapUrl    String?
+  phone     String?
+  createdAt DateTime @default(now())
+
+  appointments Appointment[]
+  staff        User[]
+}
+
+model Appointment {
+  id         String            @id @default(uuid())
+  patientId  String
+  patient    Patient           @relation(fields: [patientId], references: [id])
+  branchId   String?
+  branch     Branch?           @relation(fields: [branchId], references: [id])
+  date       DateTime
+  time       String?
+  homeVisit  Boolean           @default(false)
+  latitude   Float?
+  longitude  Float?
+  address    String?           @db.Text
+  status     AppointmentStatus @default(PENDING)
+  notes      String?           @db.Text
+  totalPrice Float?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  familyMemberId String?
+  familyMember   FamilyMember? @relation(fields: [familyMemberId], references: [id])
+
+  testItems AppointmentTest[]
+  results   Result[]
+}
+
+model AppointmentTest {
+  id            String      @id @default(uuid())
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  testId        String
+  test          Test        @relation(fields: [testId], references: [id])
+}
+
+model Test {
+  id          String   @id @default(uuid())
+  name        String
+  nameAr      String?
+  description String?  @db.Text
+  price       Float?
+  cost        Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  results          Result[]
+  appointmentTests AppointmentTest[]
+}
+
+model Result {
+  id        String     @id @default(uuid())
+  patientId String
+  patient   Patient    @relation(fields: [patientId], references: [id])
+  testId    String
+  test      Test       @relation(fields: [testId], references: [id])
+  appointmentId String?
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  fileUrl      String?    // Link to Supabase storage PDF
+  numericValue Float?     // Numeric result for charting
+  status       TestStatus @default(PENDING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  reports Report[]
+}
+
+model Report {
+  id          String   @id @default(uuid())
+  resultId    String
+  result      Result   @relation(fields: [resultId], references: [id], onDelete: Cascade)
+  fileUrl     String   // Final generated report file
+  summary     String?  @db.Text
+  generatedAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  key         String   @id
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+}
