@@ -148,6 +148,11 @@ export const resultsApi = {
   getMine: () => apiFetch('/results/my'),
   getAll: () => apiFetch('/results'),
   getOne: (id: string) => apiFetch(`/results/${id}`),
+  update: (id: string, data: any) =>
+    apiFetch(`/results/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
   delete: (id: string) =>
     apiFetch(`/results/${id}`, {
       method: 'DELETE',

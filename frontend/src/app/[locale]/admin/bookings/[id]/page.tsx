@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { appointmentsApi, resultsApi } from "@/lib/api";
+import { appointmentsApi, resultsApi, apiFetch } from "@/lib/api";
 import { supabase } from "@/lib/supabase";
 import {
   Calendar,
@@ -99,12 +99,9 @@ export default function BookingDetailsPage() {
 
       if (existingResult) {
         // Update existing result
-        await apiFetch(`/results/${existingResult.id}`, {
-          method: 'PATCH',
-          body: JSON.stringify({
-            fileUrl: publicUrl,
-            status: "READY"
-          })
+        await resultsApi.update(existingResult.id, {
+          fileUrl: publicUrl,
+          status: "READY"
         });
       } else {
         // Create new result
