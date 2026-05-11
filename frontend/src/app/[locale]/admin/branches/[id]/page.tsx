@@ -160,17 +160,13 @@ export default function BranchDetailsPage() {
           </div>
           
           <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-            <DialogTrigger asChild>
-              <div 
-                role="button"
-                className={cn(
-                  buttonVariants({ variant: "default" }),
-                  "h-12 px-6 rounded-xl font-bold shadow-lg shadow-primary/20 cursor-pointer"
-                )}
-              >
-                {isRtl ? "تعديل بيانات الفرع" : "Edit Branch Info"}
-              </div>
-            </DialogTrigger>
+            <DialogTrigger 
+              render={
+                <Button className="h-12 px-6 rounded-xl font-bold shadow-lg shadow-primary/20">
+                  {isRtl ? "تعديل بيانات الفرع" : "Edit Branch Info"}
+                </Button>
+              }
+            />
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle className="text-xl font-black">{isRtl ? "تعديل بيانات الفرع" : "Edit Branch Info"}</DialogTitle>
