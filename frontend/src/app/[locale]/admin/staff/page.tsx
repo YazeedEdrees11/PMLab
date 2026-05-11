@@ -182,7 +182,7 @@ export default function StaffPage() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black uppercase tracking-widest text-slate-400">{isRtl ? "الدور" : "Role"}</label>
-                  <Select value={newRole} onValueChange={setNewRole}>
+                  <Select value={newRole} onValueChange={(val) => setNewRole(val || "ADMIN")}>
                     <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 font-bold"><SelectValue /></SelectTrigger>
                     <SelectContent className="rounded-xl">
                       <SelectItem value="ADMIN" className="font-bold">{isRtl ? "مدير" : "Admin"}</SelectItem>
@@ -192,7 +192,7 @@ export default function StaffPage() {
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black uppercase tracking-widest text-slate-400">{isRtl ? "الفرع" : "Branch"}</label>
-                  <Select value={newBranch} onValueChange={setNewBranch}>
+                  <Select value={newBranch} onValueChange={(val) => setNewBranch(val || "super_admin")}>
                     <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 font-bold"><SelectValue /></SelectTrigger>
                     <SelectContent className="rounded-xl">
                       <SelectItem value="super_admin" className="font-bold">{isRtl ? "كل الفروع" : "All Branches"}</SelectItem>
@@ -338,7 +338,7 @@ export default function StaffPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400">{isRtl ? "الدور" : "Role"}</label>
-                <Select value={editRole} onValueChange={setEditRole}>
+                <Select value={editRole} onValueChange={(val) => setEditRole(val || "ADMIN")}>
                   <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 font-bold"><SelectValue /></SelectTrigger>
                   <SelectContent className="rounded-xl">
                     <SelectItem value="ADMIN" className="font-bold">{isRtl ? "مدير" : "Admin"}</SelectItem>
@@ -348,7 +348,7 @@ export default function StaffPage() {
               </div>
               <div className="space-y-1.5">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400">{isRtl ? "الفرع" : "Branch"}</label>
-                <Select value={editBranch} onValueChange={setEditBranch}>
+                <Select value={editBranch} onValueChange={(val) => setEditBranch(val || "super_admin")}>
                   <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 font-bold"><SelectValue /></SelectTrigger>
                   <SelectContent className="rounded-xl">
                     <SelectItem value="super_admin" className="font-bold">{isRtl ? "كل الفروع" : "All"}</SelectItem>
