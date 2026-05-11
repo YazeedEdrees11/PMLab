@@ -111,7 +111,7 @@ export const branchesApi = {
 
 // ========== APPOINTMENTS ==========
 export const appointmentsApi = {
-  create: (data: { patientId?: string; branchId?: string | null; date: string; time?: string; homeVisit?: boolean; testIds: string[]; address?: string | null }) =>
+  create: (data: { patientId?: string; familyMemberId?: string | null; branchId?: string | null; date: string; time?: string; homeVisit?: boolean; testIds: string[]; address?: string | null }) =>
     apiFetch('/appointments', {
       method: 'POST',
       body: JSON.stringify(data),
