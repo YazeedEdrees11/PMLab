@@ -140,7 +140,7 @@ export const appointmentsApi = {
 
 // ========== RESULTS ==========
 export const resultsApi = {
-  create: (data: { patientId: string; testId: string; fileUrl: string; status: string }) =>
+  create: (data: { patientId: string; testId: string; appointmentId?: string; fileUrl: string; status: string }) =>
     apiFetch('/results', {
       method: 'POST',
       body: JSON.stringify(data),
