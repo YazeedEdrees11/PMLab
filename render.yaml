@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free # Can be changed to starter for 24/7 uptime
     region: frankfurt # Or any region close to you
-    buildCommand: cd backend && npm install && npx prisma generate && npm run build
+    buildCommand: cd backend && npm install && npx prisma generate && npx nest build
     startCommand: cd backend && npm run start:prod
     envVars:
       - key: NODE_ENV
