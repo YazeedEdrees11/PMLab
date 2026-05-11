@@ -171,7 +171,7 @@ export default function FinancePage() {
         <div className="flex flex-col gap-3 min-w-[280px]">
           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 px-1">{isRtl ? "تصفية حسب الفرع" : "Filter by Branch"}</label>
           
-          <Select value={selectedBranch} onValueChange={setSelectedBranch} modal={false}>
+          <Select value={selectedBranch} onValueChange={(val) => setSelectedBranch(val || "all")} modal={false}>
             <SelectTrigger 
               className={cn(
                 "w-full h-14 rounded-[20px] bg-white border-2 border-slate-100 font-black text-slate-700 shadow-sm hover:border-slate-200 transition-all outline-none",
