@@ -9,9 +9,10 @@ interface TimePickerProps {
   value: string;
   onChange: (value: string) => void;
   isRtl?: boolean;
+  placeholder?: string;
 }
 
-export function CustomTimePicker({ value, onChange, isRtl }: TimePickerProps) {
+export function CustomTimePicker({ value, onChange, isRtl, placeholder }: TimePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,7 +44,7 @@ export function CustomTimePicker({ value, onChange, isRtl }: TimePickerProps) {
       >
         <Clock className={`h-5 w-5 ${isRtl ? "ml-4" : "mr-4"} ${isOpen ? "text-primary" : "text-slate-400"} group-hover:text-primary transition-colors`} />
         <span className={`text-lg font-black ${value ? "text-slate-900" : "text-slate-400"}`}>
-          {value ? value : (isRtl ? "اختر الوقت" : "Select Time")}
+          {value ? value : (placeholder || (isRtl ? "اختر الوقت" : "Select Time"))}
         </span>
       </div>
 
