@@ -5,7 +5,7 @@ services:
     plan: free # Can be changed to starter for 24/7 uptime
     region: frankfurt # Or any region close to you
     buildCommand: cd backend && npm install --include=dev && npx prisma generate && npm run build
-    startCommand: cd backend && npm run start:prod
+    startCommand: cd backend && node dist/src/main
     envVars:
 #      - key: NODE_ENV
 #        value: production
