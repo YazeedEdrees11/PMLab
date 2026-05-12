@@ -5,7 +5,7 @@ import { Bell, CheckCircle2, Clock, AlertCircle, X, ChevronRight } from "lucide-
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "next-intl";
 import Link from "next/link";
-import { useNotificationStore } from "@/store/useNotificationStore";
+import { useNotificationStore, type Notification } from "@/store/useNotificationStore";
 
 export function NotificationDropdown() {
   const locale = useLocale();
@@ -39,13 +39,13 @@ export function NotificationDropdown() {
       const data = await apiFetch('/notifications/my');
       if (Array.isArray(data)) {
         // Map backend notifications to store format
-        const mapped = data.map((n: any) => ({
+        const mapped: Notification[] = data.map((n: any) => ({
           id: n.id,
           title: "New Notification",
           titleAr: "إشعار جديد",
           message: n.message,
           messageAr: n.message,
-          type: "INFO",
+          type: (n.type as any) || "INFO",
           time: new Date(n.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           date: new Date(n.createdAt).toISOString().split('T')[0],
           read: n.isRead,

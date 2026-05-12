@@ -30,6 +30,7 @@ import {
   Area
 } from "recharts";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ResultsPage() {
   const t = useTranslations("Dashboard");

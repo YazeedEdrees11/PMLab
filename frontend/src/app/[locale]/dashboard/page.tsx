@@ -32,7 +32,7 @@ const containerVariants = {
       staggerChildren: 0.1
     }
   }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -45,7 +45,7 @@ const itemVariants = {
       damping: 15
     }
   }
-};
+} as const;
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");
